@@ -10,8 +10,10 @@ module.exports = {
 }
 
 //Load Local configuration file
-var cfg = require('../config.json');
-var SLServer = cfg.B1.Server + ":" + cfg.ServiceLayer.Port + cfg.ServiceLayer.Path;
+//Load Local configuration file
+var SLServer =  process.env.B1_SERVER_ENV + ":"
+                + process.env.B1_SLPORT_ENV
+                + process.env.B1_SLPATH_ENV;
 
 //Load Node Modules
 var req = require('request') // HTTP Client
@@ -22,9 +24,9 @@ function Connect(callback) {
 
     //B1 Login Credentials
     var data = {
-        UserName: cfg.B1.UserName,
-        Password: cfg.B1.Password,
-        CompanyDB: cfg.B1.CompanyDB
+        UserName: process.env.B1_USER_ENV,
+        Password: process.env.B1_PASS_ENV,
+        CompanyDB: process.env.B1_COMP_ENV
     };
 
     //Set HTTP Request Options
