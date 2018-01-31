@@ -37,7 +37,7 @@ db.Connect(function (error) {
 //Endpoint to POST items to Service Layer
 app.post('/InsertItem', function (req, res) {
   db.Insert(req.body, function (error, resp) {
-    res.redirect('views/index.html');
+    res.redirect('/');
   });
 });
 
