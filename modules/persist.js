@@ -1,5 +1,4 @@
 /** Persistence Layer (PostGree) library */
-
 module.exports = {
     Connect: function (response) {
         return (Connect(response));
@@ -15,7 +14,9 @@ module.exports = {
 var { Client } = require('pg') //PostgreSQL npm package
 var vcap_services = JSON.parse(process.env.VCAP_SERVICES)
 var uri = vcap_services.postgresql[0].credentials.uri
+
 console.log("Postgree URI - " + uri)
+
 const pgClient = new Client({
     connectionString: uri,
 })
