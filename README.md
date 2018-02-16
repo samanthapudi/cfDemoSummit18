@@ -1,7 +1,7 @@
 # cfDemoSummit18 - Step 1
 [![SAP](https://i.imgur.com/kkQTp3m.png)](https://cloudplatform.sap.com)
 
-This is a sample step by step guide of how to build cloud applications based on [Cloud Foundry](https://www.cloudfoundry.org/) can be built. 
+This is a sample step by step guide of how to build cloud applications based on [Cloud Foundry](https://www.cloudfoundry.org/). 
 
 ### Step 1 - App implementation
 The step 1 is the basic app implementation. Consist of a simple HTML front end that lists SAP Business One items using the Service Layer.
