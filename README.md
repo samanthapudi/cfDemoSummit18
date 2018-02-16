@@ -3,7 +3,7 @@
 
 This is a sample step by step guide of how to build cloud applications based on [Cloud Foundry](https://www.cloudfoundry.org/) can be built. 
 
-### Step 1 - Scalability
+### Step 2 - Scalability
 The step 2 shows the scalability features of Cloud Foundry by creating multiple instances of the app to handle heavy workloads
 
 ### Installation
