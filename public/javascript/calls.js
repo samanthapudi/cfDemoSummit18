@@ -3,10 +3,6 @@ $(document).ready(function () {
 	$.get("/GetItems", function (json) {
 		displayItems(json);
 	});
-	//Get Environment Variables
-	$.get("/GetEnv", function (json) {
-		displayEnvironment(json);
-	});
 });
 
 function displayItems(json) {
@@ -24,10 +20,4 @@ function displayItems(json) {
 				items[i].QuantityOrderedByCustomers) + "</td>" +
 			"</tr>");
 	}
-}
-
-function displayEnvironment(json) {
-	$("#env").append(
-		"<div>" + "<strong>SL SessionID:</strong> " + json.sl.SessionId + "</div>" +
-		"<div>" + "<strong>Served by server #</strong> " + json.instance + "</div>");
 }
