@@ -19,7 +19,7 @@ Check what services are available in the Cloud Foundry Market Place
 ```sh
 $ cf marketplace
 ```
-Now create a nservice using the following command
+Now create a new service using the following command
 ```sh
 $ cf create-service <Service> <Plan> <service_instance>
 ```
