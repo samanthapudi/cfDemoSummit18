@@ -27,4 +27,4 @@ Check again how many instances of the app are currently running
 ```sh
 $ cf app cfdemosummit18
 ```
-Access the app URL and if you refresh the page multiple times you can see it being served by different servers each one with a specific Service Layer Connection
+Access the app URL and if you refresh the page multiple times you can see it being served by different servers each one with a specific Service Layer Connection 
