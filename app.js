@@ -6,7 +6,12 @@ app.use(express.static('public'));
 
 /* Load Local Modules */
 var sl = require('./modules/serviceLayer');
-var slSession = null;
+var slOptions = {
+  headers: {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+  }
+}
 var output = {};
 
 if (!process.env.APIHUB) {
@@ -16,14 +21,16 @@ if (!process.env.APIHUB) {
       console.error(error);
       return; // Abort Execution
     } else {
-      slSession = resp;
+      slOptions.headers["Cookie"] = resp.cookie;
     }
   });
+} else {
+  slOptions.headers["demoDB"] = process.env.B1_COMP_ENV
+  slOptions.headers["APIKey"] = process.env.APIKey
 }
-app.get('/GetItems', function (req, res) {
-  var options = { headers: { 'Cookie': slSession.cookie } };
 
-  sl.GetItems(options, function (error, resp) {
+app.get('/GetItems', function (req, res) { 
+  sl.GetItems(slOptions, function (error, resp) {
     if (error) {
       console.error("Can't get Items from Service Layer - " + error);
       res.send(error);
