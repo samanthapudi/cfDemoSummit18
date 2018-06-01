@@ -9,24 +9,25 @@ var sl = require('./modules/serviceLayer');
 var slSession = null;
 var output = {};
 
-sl.Connect(function (error, resp) {
-  if (error) {
-    console.error("Can't Connect to Service Layer");
-    console.error(error);
-    return; // Abort Execution
-  } else{
-    slSession = resp; 
-  }
-});
-
+if (!process.env.APIHUB) {
+  sl.Connect(function (error, resp) {
+    if (error) {
+      console.error("Can't Connect to Service Layer");
+      console.error(error);
+      return; // Abort Execution
+    } else {
+      slSession = resp;
+    }
+  });
+}
 app.get('/GetItems', function (req, res) {
   var options = { headers: { 'Cookie': slSession.cookie } };
 
   sl.GetItems(options, function (error, resp) {
     if (error) {
-      console.error("Can't get Items from Service Layer - "+error);
+      console.error("Can't get Items from Service Layer - " + error);
       res.send(error);
-    }else {
+    } else {
       res.setHeader('Content-Type', 'application/json');
       res.send(resp);
     }
