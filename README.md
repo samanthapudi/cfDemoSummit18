@@ -35,5 +35,4 @@ Restart your application (so it can read the new environment variables)
 $ cf restart cfdemosummit18
 ```
 
-Access the app from the URL route showed in the terminal# cfDemoSummit18 - Step 2
-[![SAP](https://i.imgur.com/kkQTp3m.png)](https://cloudplatform.sap.com)
+Access the app from the URL route showed in the terminal
