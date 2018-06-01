@@ -16,16 +16,18 @@ var db = require('./modules/persist');
 var slSession = null;
 var output = {};
 
-//First Thing, coonect to SL and store a SessionID
-sl.Connect(function (error, resp) {
-  if (error) {
-    console.error("Can't Connect to Service Layer");
-    console.error(error);
-    return; // Abort Execution
-  } else {
-    slSession = resp;
-  }
-});
+//EndPoint To retrieve Items from Service Layer
+if (!process.env.APIHUB) {
+  sl.Connect(function (error, resp) {
+    if (error) {
+      console.error("Can't Connect to Service Layer");
+      console.error(error);
+      return; // Abort Execution
+    } else {
+      slSession = resp;
+    }
+  });
+}
 
 db.Connect(function (error) {
   if (error) {
@@ -55,7 +57,6 @@ app.get('/SelectItems', function (req, res) {
 });
 
 
-//EndPoint To retrieve Items from Service Layer
 app.get('/GetItems', function (req, res) {
   var options = { headers: { 'Cookie': slSession.cookie } };
 
