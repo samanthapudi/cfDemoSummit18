@@ -8,22 +8,26 @@ module.exports = {
     },
     Insert: function (data, response) {
         return (Insert(data, response));
+    },
+    Update: function (item, response) {
+        return (Update(item, response));
     }
 }
 
-var { Client } = require('pg') //PostgreSQL npm package
-var vcap_services = JSON.parse(process.env.VCAP_SERVICES)
-var uri = vcap_services.postgresql[0].credentials.uri
+const pg = require("pg")
 
-console.log("Postgree URI - " + uri)
-
-const pgClient = new Client({
-    connectionString: uri,
-})
+var credentials = null;
+var vcap = null;
+if (process.env.VCAP_SERVICES) {
+    console.log("VCAP Services Found")
+    vcap = JSON.parse(process.env.VCAP_SERVICES);
+    credentials = { connectionString: vcap.postgresql[0].credentials.uri }
+}
+var pgClient = new pg.Client(credentials)
 
 function Connect(callback) {
     console.log('PG Connecting')
-    var query = 'CREATE TABLE items (code varchar(256) NOT NULL, name varchar(256) NOT NULL, integrated boolean NOT NULL)'
+    var query = 'CREATE TABLE IF NOT EXISTS items (code varchar(256) NOT NULL, name varchar(256) NOT NULL, integrated boolean NOT NULL)'
     pgClient.connect(function (err) {
         console.log('PG Connected')
         if (err) {
@@ -57,6 +61,19 @@ function Insert(data, callback) {
 
     var query = 'INSERT INTO items(code,name,integrated) VALUES($1, $2, $3)';
     pgClient.query(query, [data.code,data.name,false], function (err,result){
+        if (err) {
+            callback(err)
+        }else{
+            callback(null, result)
+        }
+    });
+}
+
+function Update(item, callback) {
+    console.log('PG Updating Table data '+ JSON.stringify(item))
+
+    var query = 'UPDATE items SET integrated = true WHERE code = $1';
+    pgClient.query(query, [item], function (err,result){
         if (err) {
             callback(err)
         }else{
